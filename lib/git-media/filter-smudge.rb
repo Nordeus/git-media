@@ -21,7 +21,9 @@ module GitMedia
           # TODO: download file if not in the media buffer area
           if !can_download
             STDERR.puts('media missing, saving placeholder : ' + sha)
-            puts sha
+            STDOUT.write sha
+	    STDOUT.binmode
+	    STDOUT.write "\n"
           end
         end
       else
