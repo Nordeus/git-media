@@ -13,8 +13,9 @@ module GitMedia
         if File.exists?(media_file)
           STDERR.puts('recovering media : ' + sha)
           File.open(media_file, 'r') do |f|
+	    STDOUT.binmode
             while data = f.read(4096) do
-              print data
+              STDOUT.write data
             end
           end
         else
@@ -29,9 +30,10 @@ module GitMedia
       else
         # if it is not a 40 character long hash, just output
         STDERR.puts('Unknown git-media file format')
-        print sha
+        STDOUT.write sha
+	STDOUT.binmode
         while data = STDIN.read(4096)
-          print data
+          STDOUT.write data
         end
       end
     end
